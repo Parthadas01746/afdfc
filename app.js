@@ -30,18 +30,24 @@ function loadCountries(countries){
 }
 
 function showDetails(codes){
-    for(code of codes){
-    fetch(`https://restcountries.eu/rest/v2/alpha/${code}`)
+    
+    fetch(`https://restcountries.eu/rest/v2/alpha/${codes}`)
     .then(res => res.json())
-    .then(data => console.log(data))
-    var detaisContainer = document.getElementById("show-details");
-    detaisContainer.innerHTML = `
-    <h3>${code.capital}</h3>
-    <h3>courencies</h3>
-    <h3>population</h3>
-    <h3>region</h3>`
-    }
+    .then(data => details(data))
+    
    
+}
+
+
+function details(datass){
+    var detaisContainer = document.getElementById("show-details")
+    detaisContainer.innerHTML = `
+    <div ">
+    <h2>capital</h2>
+          <h2>capital:${datass.capital}</h2>
+          <h2>currencies:${datass.currencies[0].name}</h2>
+          <h2>Area code:${datass.area}</h2>
+          </div>`
 }
 
 
