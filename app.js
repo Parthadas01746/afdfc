@@ -1,7 +1,10 @@
 document.getElementById("button-addon2").addEventListener("click", function(){
     var input = document.getElementById("input-field");
     var inputValue = input.value;
-
+    input.value = ""
+    if(inputValue == ""){
+        alert("Input value can not be empty")
+    }
     fetch(`https://restcountries.eu/rest/v2/name/${inputValue}`)
     .then(res => res.json())
     .then(data => loadCountries(data))
@@ -10,9 +13,17 @@ document.getElementById("button-addon2").addEventListener("click", function(){
 
 
 function loadCountries(countries){
+    if(countries.status == 404){
+        alert("Search result not found")
+    }
    for( const country of countries){
+    
        console.log(country)
        var countryContainer = document.getElementById("country-container");
+       var detaisContainer = document.getElementById("show-details")
+       detaisContainer.innerHTML = ""
+       countryContainer.innerHTML = ""
+      
        var div = document.createElement("div");
        div.classList.add("col");
        div.innerHTML = `
@@ -40,7 +51,9 @@ function showDetails(codes){
 
 
 function details(datass){
+    
     var detaisContainer = document.getElementById("show-details")
+    
     detaisContainer.innerHTML = `
     <div ">
     <h2>capital</h2>
@@ -48,6 +61,7 @@ function details(datass){
           <h2>currencies:${datass.currencies[0].name}</h2>
           <h2>Area code:${datass.area}</h2>
           </div>`
+          ;
 }
 
 
